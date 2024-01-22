@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,18 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.index');
-})->name('index');
+Route::get('/', [FrontendController::class, 'index'])->name('index');
+Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 
-Route::get('/products', function () {
-    return view('frontend.product.index');
-})->name('products.index');
-
-Route::get('/product/details', function () {
-    return view('frontend.product.details');
-})->name('products.details');
-
-Route::get('/contact', function () {
-    return view('frontend.contact');
-})->name('contact');
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/product/details', [ProductController::class, 'details'])->name('products.details');
