@@ -3,6 +3,7 @@
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\ProductController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,5 @@ Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/product/details', [ProductController::class, 'details'])->name('products.details');
+
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
