@@ -1,0 +1,133 @@
+@extends('backend.app')
+
+@section('content')
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-2">
+                        <h1>Create Product</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-10">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Products</a></li>
+                            <li class="breadcrumb-item active">Create</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+
+
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Fill the form below to create a new product</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" class="form-control" name="name"
+                                       placeholder="Enter name of the proudct">
+                            </div>
+                            <div class="form-group">
+                                <label>Price</label>
+                                <input type="number" class="form-control" name="price"
+                                       placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label>Short Description</label>
+                                <textarea class="form-control" name="short_description" id="" cols="30"
+                                          rows="10"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea class="form-control" name="description" id="" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Information</label>
+                                <textarea class="form-control" name="information" id="" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Available Sizes</label>
+                                <input type="text" class="form-control" name="sizes"
+                                       placeholder="Enter sizes key seperated by comma (S,M,L,XL)">
+                            </div>
+                            <div class="form-group">
+                                <label>Available Colors</label>
+                                <input type="text" class="form-control" name="colors"
+                                       placeholder="Enter color key seperated by comma (Black,White,Red,Blue)">
+                            </div>
+                            <div class="form-group">
+                                <label>Available Quantity</label>
+                                <input type="number" class="form-control" name="available_quantity">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputFile">Primary Image</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input name="image_one" type="file" class="custom-file-input"
+                                               id="exampleInputFile">
+                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Upload</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputFile">Image Two</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input name="image_two" type="file" class="custom-file-input"
+                                               id="exampleInputFile">
+                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Upload</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputFile">Image Three</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input name="image_three" type="file" class="custom-file-input"
+                                               id="exampleInputFile">
+                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Upload</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Create Product</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+@endsection

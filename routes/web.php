@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\ProductController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Backend\ProductController as BackendProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,7 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 Route::get('/product/details', [ProductController::class, 'details'])->name('products.details');
 
 Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+Route::get('/admin/products', [BackendProductController::class, 'index'])->name('admin.products');
+Route::get('/admin/products/create', [BackendProductController::class, 'create'])->name('admin.products.create');
+Route::post('/admin/products/store', [BackendProductController::class, 'store'])->name('admin.products.store');
+Route::get('/admin/products/{product}/destroy', [BackendProductController::class, 'destroy'])->name('admin.products.destroy');
