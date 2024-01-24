@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -31,6 +32,25 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $product = Product::create($request->only(['name', 'price', 'short_description', 'description', 'information', 'sizes', 'colors', 'available_quantity']));
+
+        if ($request->has('image_one')) {
+            $imageOne = Storage::put('public/products', $request->file('image_one'));
+            $imageOneURL = config('app.url') . Storage::url($imageOne);
+            $product->update(['image_one' => $imageOneURL]);
+        }
+
+        if ($request->has('image_two')) {
+            $imageTwo = Storage::put('public/products', $request->file('image_two'));
+            $imageTwoURL = config('app.url') . Storage::url($imageTwo);
+            $product->update(['image_two' => $imageTwoURL]);
+        }
+
+        if ($request->has('image_three')) {
+            $imageThree = Storage::put('public/products', $request->file('image_three'));
+            $imageThreeURL = config('app.url') . Storage::url($imageThree);
+            $product->update(['image_three' => $imageThreeURL]);
+        }
+
         return redirect()->route('admin.products');
     }
 
@@ -56,6 +76,28 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $product->update($request->only(['name', 'price', 'short_description', 'description', 'information', 'sizes', 'colors', 'available_quantity']));
+
+        if ($request->has('image_one')) {
+            Storage::delete('public/products/' . basename($product->image_one));
+            $imageOne = Storage::put('public/products', $request->file('image_one'));
+            $imageOneURL = config('app.url') . Storage::url($imageOne);
+            $product->update(['image_one' => $imageOneURL]);
+        }
+
+        if ($request->has('image_two')) {
+            Storage::delete('public/products/' . basename($product->image_two));
+            $imageTwo = Storage::put('public/products', $request->file('image_two'));
+            $imageTwoURL = config('app.url') . Storage::url($imageTwo);
+            $product->update(['image_two' => $imageTwoURL]);
+        }
+
+        if ($request->has('image_three')) {
+            Storage::delete('public/products/' . basename($product->image_three));
+            $imageThree = Storage::put('public/products', $request->file('image_three'));
+            $imageThreeURL = config('app.url') . Storage::url($imageThree);
+            $product->update(['image_three' => $imageThreeURL]);
+        }
+
         return redirect()->route('admin.products');
     }
 
@@ -64,6 +106,9 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        Storage::delete('public/products/' . basename($product->image_one));
+        Storage::delete('public/products/' . basename($product->image_two));
+        Storage::delete('public/products/' . basename($product->image_three));
         $product->delete();
         return redirect()->route('admin.products');
     }
