@@ -47,7 +47,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('backend.product.edit', compact('product'));
     }
 
     /**
@@ -55,7 +55,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $product->update($request->only(['name', 'price', 'short_description', 'description', 'information', 'sizes', 'colors', 'available_quantity']));
+        return redirect()->route('admin.products');
     }
 
     /**

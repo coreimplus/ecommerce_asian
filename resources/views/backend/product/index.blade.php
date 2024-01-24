@@ -19,7 +19,8 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-2">
-                        <a href="{{ route('admin.products.create') }}" type="button" class="btn btn-block btn-primary">Create Product</a>
+                        <a href="{{ route('admin.products.create') }}" type="button" class="btn btn-block btn-primary">Create
+                            Product</a>
                     </div><!-- /.col -->
                     <div class="col-sm-10">
                         <ol class="breadcrumb float-sm-right">
@@ -63,7 +64,7 @@
                                         <img src="{{ $product->image_one }}" alt="">
                                     </td>
                                     <td>
-                                        <a href="#">Edit</a> |
+                                        <a href="{{ route('admin.products.edit', $product->id) }}">Edit</a> |
                                         <a href="{{ route('admin.products.destroy', $product->id) }}">Delete</a>
                                     </td>
                                 </tr>

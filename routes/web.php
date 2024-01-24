@@ -26,5 +26,7 @@ Route::get('/product/details', [ProductController::class, 'details'])->name('pro
 Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 Route::get('/admin/products', [BackendProductController::class, 'index'])->name('admin.products');
 Route::get('/admin/products/create', [BackendProductController::class, 'create'])->name('admin.products.create');
+Route::get('/admin/products/{product}/edit', [BackendProductController::class, 'edit'])->name('admin.products.edit');
+Route::post('/admin/products/{product}/update', [BackendProductController::class, 'update'])->name('admin.products.update');
 Route::post('/admin/products/store', [BackendProductController::class, 'store'])->name('admin.products.store');
 Route::get('/admin/products/{product}/destroy', [BackendProductController::class, 'destroy'])->name('admin.products.destroy');
