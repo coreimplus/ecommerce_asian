@@ -21,7 +21,7 @@ Route::get('/', [FrontendController::class, 'index'])->name('index');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-Route::get('/product/details', [ProductController::class, 'details'])->name('products.details');
+Route::get('/product/{product}/details', [ProductController::class, 'details'])->name('products.details');
 
 Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 Route::get('/admin/products', [BackendProductController::class, 'index'])->name('admin.products');

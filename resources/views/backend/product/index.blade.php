@@ -61,7 +61,7 @@
                                     <td>{{ $product->price }}</td>
                                     <td>{{ $product->short_description }}</td>
                                     <td>
-                                        <img src="{{ $product->image_one }}" alt="">
+                                        <img src="{{ $product->image_one }}" width="150" alt="">
                                     </td>
                                     <td>
                                         <a href="{{ route('admin.products.edit', $product->id) }}">Edit</a> |

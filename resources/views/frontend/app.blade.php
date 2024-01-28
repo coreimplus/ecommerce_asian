@@ -156,7 +156,6 @@
                     <div class="navbar-nav mr-auto py-0">
                         <a href="{{ route('index') }}" class="nav-item nav-link active">Home</a>
                         <a href="{{ route('products.index') }}" class="nav-item nav-link">Shop</a>
-                        <a href="{{ route('products.details') }}" class="nav-item nav-link">Shop Detail</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i
                                         class="fa fa-angle-down mt-1"></i></a>
