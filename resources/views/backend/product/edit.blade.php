@@ -33,7 +33,8 @@
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.products.update', $product->id) }}" method="POST"
+                          enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
                             <div class="form-group">
@@ -53,11 +54,13 @@
                             </div>
                             <div class="form-group">
                                 <label>Description</label>
-                                <textarea class="form-control" name="description" id="" cols="30" rows="10">{{ $product->description }}</textarea>
+                                <textarea class="form-control" name="description" id="" cols="30"
+                                          rows="10">{{ $product->description }}</textarea>
                             </div>
                             <div class="form-group">
                                 <label>Information</label>
-                                <textarea class="form-control" name="information" id="" cols="30" rows="10">{{ $product->information }}</textarea>
+                                <textarea class="form-control" name="information" id="" cols="30"
+                                          rows="10">{{ $product->information }}</textarea>
                             </div>
                             <div class="form-group">
                                 <label>Available Sizes</label>
@@ -71,11 +74,12 @@
                             </div>
                             <div class="form-group">
                                 <label>Available Quantity</label>
-                                <input type="number" class="form-control" name="available_quantity"  value="{{ $product->available_quantity }}">
+                                <input type="number" class="form-control" name="available_quantity"
+                                       value="{{ $product->available_quantity }}">
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleInputFile">Primary Image</label>
+                                <label for="exampleInputFile">Primary Image (500x500)</label>
                                 <div class="input-group">
                                     <div class="custom-file">
                                         <input name="image_one" type="file" class="custom-file-input"
@@ -88,8 +92,14 @@
                                 </div>
                             </div>
 
+                            @if($product->image_one)
+                                <div class="edit-product-image">
+                                    <img src="{{ $product->image_one }}" alt="" width="500px" height="500px">
+                                </div>
+                            @endif
+
                             <div class="form-group">
-                                <label for="exampleInputFile">Image Two</label>
+                                <label for="exampleInputFile">Image Two (500x500)</label>
                                 <div class="input-group">
                                     <div class="custom-file">
                                         <input name="image_two" type="file" class="custom-file-input"
@@ -102,8 +112,14 @@
                                 </div>
                             </div>
 
+                            @if($product->image_two)
+                                <div class="edit-product-image">
+                                    <img src="{{ $product->image_two }}" alt="" width="500px" height="500px">
+                                </div>
+                            @endif
+
                             <div class="form-group">
-                                <label for="exampleInputFile">Image Three</label>
+                                <label for="exampleInputFile">Image Three (500x500)</label>
                                 <div class="input-group">
                                     <div class="custom-file">
                                         <input name="image_three" type="file" class="custom-file-input"
@@ -115,6 +131,13 @@
                                     </div>
                                 </div>
                             </div>
+
+                            @if($product->image_three)
+                                <div class="edit-product-image">
+                                    <img src="{{ $product->image_three }}" alt="" width="500px" height="500px">
+                                </div>
+                            @endif
+
                         </div>
                         <!-- /.card-body -->
 
