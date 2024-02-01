@@ -5,6 +5,7 @@ use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\ProductController as BackendProductController;
+use App\Http\Controllers\Backend\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +25,15 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 Route::get('/product/{product}/details', [ProductController::class, 'details'])->name('products.details');
 
 Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
+
 Route::get('/admin/products', [BackendProductController::class, 'index'])->name('admin.products');
 Route::get('/admin/products/create', [BackendProductController::class, 'create'])->name('admin.products.create');
 Route::get('/admin/products/{product}/edit', [BackendProductController::class, 'edit'])->name('admin.products.edit');
 Route::post('/admin/products/{product}/update', [BackendProductController::class, 'update'])->name('admin.products.update');
 Route::post('/admin/products/store', [BackendProductController::class, 'store'])->name('admin.products.store');
 Route::get('/admin/products/{product}/destroy', [BackendProductController::class, 'destroy'])->name('admin.products.destroy');
+
+Route::group(['prefix' => 'admin/', 'as' => 'admin.'], function () {
+    Route::resource('category', CategoryController::class);
+});
