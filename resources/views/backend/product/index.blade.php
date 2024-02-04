@@ -48,6 +48,7 @@
                             <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>Category</th>
                                 <th>Price</th>
                                 <th>Short Description</th>
                                 <th>Image</th>
@@ -58,6 +59,7 @@
                             @foreach($products as $product)
                                 <tr>
                                     <td>{{ $product->name }}</td>
+                                    <td>{{ $product->category->name }}</td>
                                     <td>{{ $product->price }}</td>
                                     <td>{{ $product->short_description }}</td>
                                     <td>
@@ -73,6 +75,7 @@
                             <tfoot>
                             <tr>
                                 <th>Name</th>
+                                <th>Category</th>
                                 <th>Price</th>
                                 <th>Short Description</th>
                                 <th>Image</th>

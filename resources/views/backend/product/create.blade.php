@@ -1,5 +1,14 @@
 @extends('backend.app')
 
+@section('styles')
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('assets/backend/dist/css/adminlte.min.css') }}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('assets/backend/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet"
+          href="{{ asset('assets/backend/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+@endsection
+
 @section('content')
 
     <!-- Content Wrapper. Contains page content -->
@@ -40,6 +49,15 @@
                                 <label>Name</label>
                                 <input type="text" class="form-control" name="name"
                                        placeholder="Enter name of the proudct">
+                            </div>
+                            <div class="form-group">
+                                <label>Minimal</label>
+                                <select name="category_id" class="form-control select2" style="width: 100%;">
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}"
+                                                selected="selected">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label>Price</label>
@@ -130,4 +148,19 @@
     </div>
     <!-- /.content-wrapper -->
 
+@endsection
+
+@section('scripts')
+    <!-- Select2 -->
+    <script src="{{ asset('assets/backend/plugins/select2/js/select2.full.min.js') }}"></script>
+
+    <script>
+        //Initialize Select2 Elements
+        $('.select2').select2()
+
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        })
+    </script>
 @endsection

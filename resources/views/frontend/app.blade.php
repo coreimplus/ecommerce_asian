@@ -24,6 +24,8 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+
+    @yield('styles')
 </head>
 
 <body>
@@ -276,6 +278,8 @@
 
 <!-- Template Javascript -->
 <script src="{{ asset('assets/js/main.js') }}"></script>
+
+@yield('scripts')
 </body>
 
 </html>

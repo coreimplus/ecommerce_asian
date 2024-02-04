@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -14,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with('category')->get();
         return view('backend.product.index', compact('products'));
     }
 
@@ -23,7 +24,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('backend.product.create');
+        $categories = Category::all();
+        return view('backend.product.create', compact('categories'));
     }
 
     /**
@@ -31,7 +33,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $product = Product::create($request->only(['name', 'price', 'short_description', 'description', 'information', 'sizes', 'colors', 'available_quantity']));
+        $product = Product::create($request->only(['category_id', 'name', 'price', 'short_description', 'description', 'information', 'sizes', 'colors', 'available_quantity']));
 
         if ($request->has('image_one')) {
             $imageOne = Storage::put('public/products', $request->file('image_one'));
