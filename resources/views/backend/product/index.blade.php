@@ -49,6 +49,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Category</th>
+                                <th>Sizes</th>
                                 <th>Price</th>
                                 <th>Short Description</th>
                                 <th>Image</th>
@@ -60,6 +61,12 @@
                                 <tr>
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->category->name }}</td>
+                                    <td>
+                                        @foreach($product->sizes as $key => $size)
+                                            {{ $size->name }}
+                                            {{ $loop->last ? '' : ' ,' }}
+                                        @endforeach
+                                    </td>
                                     <td>{{ $product->price }}</td>
                                     <td>{{ $product->short_description }}</td>
                                     <td>
@@ -76,6 +83,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Category</th>
+                                <th>Sizes</th>
                                 <th>Price</th>
                                 <th>Short Description</th>
                                 <th>Image</th>
