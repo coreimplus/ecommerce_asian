@@ -6,6 +6,7 @@ use App\Http\Controllers\Frontend\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\ProductController as BackendProductController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Frontend\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,14 +19,24 @@ use App\Http\Controllers\Backend\CategoryController;
 |
 */
 
+//------------------------------- Frontend Routes -------------------------------//
 Route::get('/', [FrontendController::class, 'index'])->name('index');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/product/{product}/details', [ProductController::class, 'details'])->name('products.details');
 
-Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+//-------------- Cart Routes --------------//
+Route::get('cart', [CartController::class, 'index'])->name('cart');
+Route::get('checkout', [CartController::class, 'checkout'])->name('checkout');
+//-------------- Cart Routes --------------//
 
+
+//------------------------------- Frontend Routes -------------------------------//
+
+
+//------------------------------- Backend Routes -------------------------------//
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
 Route::get('/admin/products', [BackendProductController::class, 'index'])->name('admin.products');
 Route::get('/admin/products/create', [BackendProductController::class, 'create'])->name('admin.products.create');
@@ -37,3 +48,4 @@ Route::get('/admin/products/{product}/destroy', [BackendProductController::class
 Route::group(['prefix' => 'admin/', 'as' => 'admin.'], function () {
     Route::resource('category', CategoryController::class);
 });
+//------------------------------- Backend Routes -------------------------------//

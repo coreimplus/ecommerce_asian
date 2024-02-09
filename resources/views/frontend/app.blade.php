@@ -162,8 +162,8 @@
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i
                                         class="fa fa-angle-down mt-1"></i></a>
                             <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-                                <a href="cart.html" class="dropdown-item">Shopping Cart</a>
-                                <a href="checkout.html" class="dropdown-item">Checkout</a>
+                                <a href="{{ route('cart') }}" class="dropdown-item">Shopping Cart</a>
+                                <a href="{{ route('checkout') }}" class="dropdown-item">Checkout</a>
                             </div>
                         </div>
                         <a href="{{ route('contact') }}" class="nav-item nav-link">Contact</a>
