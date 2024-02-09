@@ -65,66 +65,58 @@
                     <p class="mb-4">
                         {!! $product->short_description !!}
                     </p>
-                    @if($product->sizes)
-                        <div class="d-flex mb-3">
-                            <strong class="text-dark mr-3">Sizes:</strong>
-                            <form>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="size-1" name="size">
-                                    <label class="custom-control-label" for="size-1">XS</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="size-2" name="size">
-                                    <label class="custom-control-label" for="size-2">S</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="size-3" name="size">
-                                    <label class="custom-control-label" for="size-3">M</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="size-4" name="size">
-                                    <label class="custom-control-label" for="size-4">L</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" class="custom-control-input" id="size-5" name="size">
-                                    <label class="custom-control-label" for="size-5">XL</label>
-                                </div>
-                            </form>
-                        </div>
-                    @endif
-                    @if($product->colors)
-                        <div class="d-flex mb-4">
-                            <strong class="text-dark mr-3">Colors:</strong>
-                            <form>
+
+                    <form action="{{ route('add.to.cart', $product->id) }}" method="GET">
+                        @csrf
+
+                        @if($product->sizes)
+                            <div class="d-flex mb-3">
+                                <strong class="text-dark mr-3">Sizes:</strong>
+                                @foreach($product->sizes as $key => $size)
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" class="custom-control-input" id="size-{{ $key }}"
+                                               name="size" value="{{ $size->name }}">
+                                        <label class="custom-control-label"
+                                               for="size-{{ $key }}">{{ $size->name }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                        @if($product->colors)
+                            <div class="d-flex mb-4">
+                                <strong class="text-dark mr-3">Colors:</strong>
                                 @foreach(explode(',', $product->colors) as $key => $availableProductColor)
                                     <div class="custom-control custom-radio custom-control-inline">
                                         <input type="radio" class="custom-control-input" id="color-{{ $key }}"
-                                               name="color">
+                                               name="color" value="{{ $availableProductColor }}">
                                         <label class="custom-control-label"
                                                for="color-{{ $key }}">{{ $availableProductColor }}</label>
                                     </div>
                                 @endforeach
-                            </form>
-                        </div>
-                    @endif
-                    <div class="d-flex align-items-center mb-4 pt-2">
-                        <div class="input-group quantity mr-3" style="width: 130px;">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary btn-minus">
-                                    <i class="fa fa-minus"></i>
-                                </button>
                             </div>
-                            <input type="text" class="form-control bg-secondary border-0 text-center" value="1">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary btn-plus">
-                                    <i class="fa fa-plus"></i>
-                                </button>
+                        @endif
+                        <div class="d-flex align-items-center mb-4 pt-2">
+                            <div class="input-group quantity mr-3" style="width: 130px;">
+                                <div class="input-group-btn">
+                                    <button onclick="event.preventDefault()" class="btn btn-primary btn-minus">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <input name="quantity" type="text"
+                                       class="form-control bg-secondary border-0 text-center"
+                                       value="1">
+                                <div class="input-group-btn">
+                                    <button onclick="event.preventDefault()" class="btn btn-primary btn-plus">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
                             </div>
+                            <button href="{{ route('add.to.cart', ['product' => $product->id]) }}"
+                                    class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
+                                Cart
+                            </button>
                         </div>
-                        <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
-                            Cart
-                        </button>
-                    </div>
+                    </form>
                     <div class="d-flex pt-2">
                         <strong class="text-dark mr-2">Share on:</strong>
                         <div class="d-inline-flex">
@@ -241,7 +233,9 @@
                                 <div class="product-action">
                                     <a class="btn btn-outline-dark btn-square" href=""><i
                                             class="fa fa-shopping-cart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href="{{ route('products.details', $relatedProduct->id) }}"><i class="fa fa-search"></i></a>
+                                    <a class="btn btn-outline-dark btn-square"
+                                       href="{{ route('products.details', $relatedProduct->id) }}"><i
+                                            class="fa fa-search"></i></a>
                                 </div>
                             </div>
                             <div class="text-center py-4">

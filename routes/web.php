@@ -28,6 +28,8 @@ Route::get('/product/{product}/details', [ProductController::class, 'details'])-
 
 //-------------- Cart Routes --------------//
 Route::get('cart', [CartController::class, 'index'])->name('cart');
+Route::get('add-to-cart/{product}', [CartController::class, 'addToCart'])->name('add.to.cart');
+Route::get('remove-from-cart/{product}', [CartController::class, 'removeFromCart'])->name('remove.from.cart');
 Route::get('checkout', [CartController::class, 'checkout'])->name('checkout');
 //-------------- Cart Routes --------------//
 
