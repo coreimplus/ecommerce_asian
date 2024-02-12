@@ -1,12 +1,14 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\ProductController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\ProductController as BackendProductController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,13 +28,30 @@ Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/product/{product}/details', [ProductController::class, 'details'])->name('products.details');
 
-//-------------- Cart Routes --------------//
+//-------------- Cart and Checkout Routes --------------//
 Route::get('cart', [CartController::class, 'index'])->name('cart');
 Route::get('add-to-cart/{product}', [CartController::class, 'addToCart'])->name('add.to.cart');
 Route::get('remove-from-cart/{product}', [CartController::class, 'removeFromCart'])->name('remove.from.cart');
 Route::get('decrease-from-cart/{product}', [CartController::class, 'decreaseFromCart'])->name('decrease.from.cart');
-Route::get('checkout', [CartController::class, 'checkout'])->name('checkout');
-//-------------- Cart Routes --------------//
+Route::get('checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+Route::post('place-order', [CheckoutController::class, 'placeOrder'])->name('checkout.place.order');
+//-------------- Cart and Checkout Routes --------------//
+
+
+
+//-------------- Breeze Routes --------------//
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
+//-------------- Breeze Routes --------------//
 
 
 //------------------------------- Frontend Routes -------------------------------//

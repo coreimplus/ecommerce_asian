@@ -40,9 +40,4 @@ class CartController extends Controller
         LaraCart::updateItem($itemQuantityToBeDecreased->getHash(), 'qty', $itemQuantityToBeDecreased->qty - 1);
         return redirect()->back()->with('success', 'You have successfully decreased quantity of a product(s) from the cart.');
     }
-
-    public function checkout()
-    {
-        return view('frontend.cart.checkout');
-    }
 }

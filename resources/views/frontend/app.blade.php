@@ -47,8 +47,8 @@
                         Account
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <button class="dropdown-item" type="button">Sign in</button>
-                        <button class="dropdown-item" type="button">Sign up</button>
+                        <a href="{{ route('login') }}" class="dropdown-item" type="button">Sign in</a>
+                        <a href="{{ route('register') }}" class="dropdown-item" type="button">Sign up</a>
                     </div>
                 </div>
                 <div class="btn-group mx-2">
