@@ -34,6 +34,13 @@ class CartController extends Controller
         return redirect()->back()->with('success', 'You have successfully removed product(s) from the cart.');
     }
 
+    public function decreaseFromCart(Product $product, Request $request)
+    {
+        $itemQuantityToBeDecreased = LaraCart::find(['id' => $product->id, 'color' => $request->color, 'size' => $request->size]);
+        LaraCart::updateItem($itemQuantityToBeDecreased->getHash(), 'qty', $itemQuantityToBeDecreased->qty - 1);
+        return redirect()->back()->with('success', 'You have successfully decreased quantity of a product(s) from the cart.');
+    }
+
     public function checkout()
     {
         return view('frontend.cart.checkout');

@@ -46,17 +46,19 @@
                             <td class="align-middle">
                                 <div class="input-group quantity mx-auto" style="width: 100px;">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-minus">
+                                        <a href="{{ route('decrease.from.cart', ['product' => $cartItem->id, 'quantity' => 1, 'size' => $cartItem->size, 'color' => $cartItem->color]) }}"
+                                           class="btn btn-sm btn-primary btn-minus">
                                             <i class="fa fa-minus"></i>
-                                        </button>
+                                        </a>
                                     </div>
                                     <input type="text"
                                            class="form-control form-control-sm bg-secondary border-0 text-center"
                                            value="{{ $cartItem->qty }}">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-plus">
+                                        <a href="{{ route('add.to.cart', ['product' => $cartItem->id, 'quantity' => 1, 'size' => $cartItem->size, 'color' => $cartItem->color]) }}"
+                                           class="btn btn-sm btn-primary btn-plus">
                                             <i class="fa fa-plus"></i>
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </td>
