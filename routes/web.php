@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\ProductController as BackendProductController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,13 +27,15 @@ Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/product/{product}/details', [ProductController::class, 'details'])->name('products.details');
 
-//-------------- Cart Routes --------------//
+//-------------- Cart & Checkout Routes --------------//
 Route::get('cart', [CartController::class, 'index'])->name('cart');
 Route::get('add-to-cart/{product}', [CartController::class, 'addToCart'])->name('add.to.cart');
 Route::get('remove-from-cart/{product}', [CartController::class, 'removeFromCart'])->name('remove.from.cart');
 Route::get('decrease-from-cart/{product}', [CartController::class, 'decreaseFromCart'])->name('decrease.from.cart');
-Route::get('checkout', [CartController::class, 'checkout'])->name('checkout');
-//-------------- Cart Routes --------------//
+
+Route::get('checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+Route::post('order', [CheckoutController::class, 'placeOrder'])->name('place.order');
+//-------------- Cart & Checkout Routes --------------//
 
 
 //------------------------------- Frontend Routes -------------------------------//

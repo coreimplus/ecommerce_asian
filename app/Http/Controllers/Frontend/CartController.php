@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Size;
 use Illuminate\Http\Request;
 use LukePOLO\LaraCart\Facades\LaraCart;
 
@@ -22,7 +23,7 @@ class CartController extends Controller
     {
         LaraCart::add($product->id, $product->name, $request->quantity, $product->price, [
             'size' => $request->size,
-            'color' => $request->color,
+            'color' => $request->color
         ]);
         return redirect()->back()->with('success', 'You have added ' . $product->name . ' to your cart.');
     }
@@ -39,10 +40,5 @@ class CartController extends Controller
         $itemQuantityToBeDecreased = LaraCart::find(['id' => $product->id, 'color' => $request->color, 'size' => $request->size]);
         LaraCart::updateItem($itemQuantityToBeDecreased->getHash(), 'qty', $itemQuantityToBeDecreased->qty - 1);
         return redirect()->back()->with('success', 'You have successfully decreased quantity of a product(s) from the cart.');
-    }
-
-    public function checkout()
-    {
-        return view('frontend.cart.checkout');
     }
 }
