@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->integer('total_price');
             $table->integer('shipping_price');
             $table->string('payment_type');
+            $table->boolean('is_paid');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

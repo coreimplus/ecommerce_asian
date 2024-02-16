@@ -80,7 +80,8 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="shipto" disabled>
+                                    <input name="new_shipping_address" type="checkbox" class="custom-control-input"
+                                           id="shipto">
                                     <label class="custom-control-label" for="shipto" data-toggle="collapse"
                                            data-target="#shipping-address">Ship to different address</label>
                                 </div>
@@ -92,8 +93,6 @@
                         </h5>
                         <div class="bg-light p-30">
                             <div class="row">
-
-                                <input type="checkbox" value="1" name="new_shipping_address">
 
                                 <div class="col-md-6 form-group">
                                     <label>Full Name</label>
@@ -176,15 +175,15 @@
                         <div class="bg-light p-30">
                             <div class="form-group">
                                 <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" name="payment"
+                                    <input type="radio" class="custom-control-input" name="payment_type"
                                            id="cash-on-delivery" value="Cash on Delivery">
                                     <label class="custom-control-label" for="cash-on-delivery">Cash on Delivery</label>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" name="payment" id="esewa">
-                                    <label class="custom-control-label" for="esewa" value="esewa">Esewa</label>
+                                    <input type="radio" class="custom-control-input" name="payment_type" id="stripe" value="Stripe">
+                                    <label class="custom-control-label" for="stripe" value="Stripe">Stripe</label>
                                 </div>
                             </div>
                             <button class="btn btn-block btn-primary font-weight-bold py-3">Place Order</button>

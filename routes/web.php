@@ -33,10 +33,9 @@ Route::get('cart', [CartController::class, 'index'])->name('cart');
 Route::get('add-to-cart/{product}', [CartController::class, 'addToCart'])->name('add.to.cart');
 Route::get('remove-from-cart/{product}', [CartController::class, 'removeFromCart'])->name('remove.from.cart');
 Route::get('decrease-from-cart/{product}', [CartController::class, 'decreaseFromCart'])->name('decrease.from.cart');
-Route::get('checkout', [CheckoutController::class, 'checkout'])->name('checkout');
-Route::post('place-order', [CheckoutController::class, 'placeOrder'])->name('checkout.place.order');
+Route::get('checkout', [CheckoutController::class, 'checkout'])->name('checkout')->middleware('auth');
+Route::post('place-order', [CheckoutController::class, 'placeOrder'])->name('checkout.place.order')->middleware('auth');
 //-------------- Cart and Checkout Routes --------------//
-
 
 
 //-------------- Breeze Routes --------------//
@@ -50,7 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 //-------------- Breeze Routes --------------//
 
 
