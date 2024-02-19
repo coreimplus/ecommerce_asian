@@ -35,6 +35,14 @@ Route::get('remove-from-cart/{product}', [CartController::class, 'removeFromCart
 Route::get('decrease-from-cart/{product}', [CartController::class, 'decreaseFromCart'])->name('decrease.from.cart');
 Route::get('checkout', [CheckoutController::class, 'checkout'])->name('checkout')->middleware('auth');
 Route::post('place-order', [CheckoutController::class, 'placeOrder'])->name('checkout.place.order')->middleware('auth');
+
+Route::get('success/{order}', function (\App\Models\Order $order) {
+    $order->update(['is_paid' => true]);
+    return 'payment successful';
+});
+Route::get('cancel', function () {
+    return 'payment cancelled';
+});
 //-------------- Cart and Checkout Routes --------------//
 
 

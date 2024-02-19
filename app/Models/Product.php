@@ -22,4 +22,9 @@ class Product extends Model
     {
         return $this->belongsToMany(Size::class, 'product_sizes');
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class)->withPivot('quantity');
+    }
 }

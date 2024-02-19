@@ -23,8 +23,20 @@ class CheckoutController extends Controller
 
     public function placeOrder(Request $request)
     {
+
+        $order = $this->saveOrder($request);
+
+        if ($request->payment_type == 'Stripe')
+            return $this->payViaStripe($order);
+
+        return redirect()->route('index');
+    }
+
+    private function saveOrder($request)
+    {
         try {
             DB::beginTransaction();
+            // Save user's preferred shipping address
             if ($request->new_shipping_address)
                 $shipping_address = ShippingAddress::create([
                     'name' => $request->shipping_name,
@@ -41,6 +53,7 @@ class CheckoutController extends Controller
                 // Todo: Handle this case
                 $shipping_address = ShippingAddress::where('user_id', auth()->user()->id)->where('default', true)->find();
             }
+            // Create an order that user wants
             $order = Order::create([
                 'total_price' => LaraCart::subTotal(false) + 15,
                 'shipping_price' => 15,
@@ -49,6 +62,7 @@ class CheckoutController extends Controller
                 'user_id' => auth()->user()->id,
                 'shipping_address_id' => $shipping_address->id
             ]);
+            // Fill the pivot table that consists the products that the user has ordered
             foreach (LaraCart::getItems() as $cartItem)
                 $order->products()->attach($cartItem->id, [
                     'size_id' => 2, //$cartItem->size_id,
@@ -63,6 +77,41 @@ class CheckoutController extends Controller
                 ->with('error', 'Something went wrong. Contact administrator.');
         }
         LaraCart::emptyCart();
-        return redirect()->route('index');
+
+        return $order;
+    }
+
+    private function payViaStripe($order)
+    {
+        \Stripe\Stripe::setApiKey('sk_test_51IWxawIG3T2XhyG92Vwy9lDekznaYnwkYzvvMXhONHAp24Olv102NYiNyXSZVoVtjPoNmAHRlFPKPree0HnkA0hE006gRPNLl3');
+        header('Content-Type: application/json');
+
+        $YOUR_DOMAIN = 'http://localhost:8000';
+
+        // Create a price
+        $stripe = new \Stripe\StripeClient('sk_test_51IWxawIG3T2XhyG92Vwy9lDekznaYnwkYzvvMXhONHAp24Olv102NYiNyXSZVoVtjPoNmAHRlFPKPree0HnkA0hE006gRPNLl3');
+        $lineItems = [];
+        foreach ($order->products as $product) {
+            $stripePrice = $stripe->prices->create([
+                'currency' => 'usd',
+                'unit_amount' => $product->price * 100,
+                'product_data' => ['name' => 'Gold Plan'],
+            ]);
+            $lineItems[] = [
+                'price' => $stripePrice->id,
+                'quantity' => $product->pivot->quantity
+            ];
+        }
+        // Create a price
+
+        $checkout_session = \Stripe\Checkout\Session::create([
+            'line_items' => [$lineItems],
+            'mode' => 'payment',
+            'success_url' => $YOUR_DOMAIN . '/success/' . $order->id,
+            'cancel_url' => $YOUR_DOMAIN . '/cancel',
+        ]);
+
+        header("HTTP/1.1 303 See Other");
+        return redirect($checkout_session->url);
     }
 }
